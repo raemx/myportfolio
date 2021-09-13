@@ -1,0 +1,14 @@
+read-me
+
+This personal project is a website for me and my brand.
+
+Dependancies:
+-Install XAMPP
+
+Steps:
+-Put files in xampp/htdocs
+-In browser, write localhost/portfolio/index.html
+
+Technologies:
+- Bootstrap
+- HTML, CSS, JavaScript, PHP, mySQL
