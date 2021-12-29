@@ -190,6 +190,7 @@ header{
 
 .intro{
   position: relative;
+  
 }
 
 .nav-open .nav{
@@ -277,7 +278,7 @@ header{
 
 .my-services{
   background-color: var(--clr-dark);
-  background-image: url(../img/service.jpg);
+  background-image: url(img/service.jpg);
   background-size: cover; /*ensures no picture repeat*/
   background-blend-mode: multiply; /*darkens picture background*/
   color: var(--clr-light);

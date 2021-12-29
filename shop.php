@@ -1,8 +1,39 @@
 <?php /*add login */
+  // starts session
+  session_start();
   require_once('product.php');
   require_once('createdatabase.php');
   //create instance of database class
   $database = new createdatabase($dbname = "Productdb", $tablename = "Producttb");
+
+  // if add is pressed (button feature), adds to cart
+  if(isset($_POST['add'])){
+    print_r($_POST['id']);
+    if(isset($_SESSION['cart'])){
+      array_column($_SESSION['cart'], $column="product_id");
+      print_r($item_array_id);
+
+      if(in_array($_POST['product_id'], $item_array_id)){
+        echo "<script>alert(\"Product is already in cart..!\")</script>";
+        echo "<script>window.location=\"shop.php\"</script>";
+      }
+      else{
+        $count = count($_SESSION['cart']); //returns elements in array
+        $item_array = array(
+          'product_id' => $_POST['product_id']
+        );
+        $_SESSION['cart'][$count] = $item_array;
+      }
+    }
+    else{
+      $item_array = array(
+        'product_id' => $_POST['product_id']
+      );
+
+      $_SESSION['cart'][0] = $item_array;
+      print_r($_SESSION['cart']);
+    }
+  }
 
 ?>
 
@@ -17,6 +48,7 @@
     <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:400,900|Source+Sans+Pro:300,900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/shopstyle.css">
   </head>
 
   <body>
@@ -38,12 +70,14 @@
       </nav>
     </header>
 
+<?php require_once("shopheader.php") ?>
+
 <div class="container">
   <div class="row text-center py-5">
     <?php
       $result = $database->getData();
       while ($row = mysqli_fetch_assoc($result)){
-       product($row['product_name'], $row['product_price'], $row['product_image'], $row['product_desc']);
+       product($row['product_name'], $row['product_price'], $row['product_image'], $row['product_desc'], $row['id']);
       }
     ?>
 </div>
